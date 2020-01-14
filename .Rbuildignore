@@ -5,7 +5,7 @@
 ^appveyor\.yml$
 ^README\.Rmd$
 ^LICENSE\.md$
-^mni\.Rproj$
+^limmi\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
 ^docs$
