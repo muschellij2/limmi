@@ -10,7 +10,7 @@ deploy:
   provider: releases
   skip_cleanup: yes
   file_glob: yes
-  file: mni*.t*gz
+  file: limmi*.t*gz
   'on':
     tags: yes
-    repo: muschellij2/mni
+    repo: muschellij2/limmi
