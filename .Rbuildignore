@@ -1,0 +1,9 @@
+^data-raw$
+^refs\.bib$
+^codecov\.yml$
+^\.travis\.yml$
+^appveyor\.yml$
+^README\.Rmd$
+^LICENSE\.md$
+^mni\.Rproj$
+^\.Rproj\.user$
