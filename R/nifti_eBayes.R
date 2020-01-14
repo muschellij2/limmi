@@ -27,8 +27,19 @@
 #'
 #' @return A list of output images from `eBayes` and the linear fit
 #' @examples
+#' tarfile = system.file("extdata", "can.tar.gz", package = "limmi")
+#' tarfile
+#' exdir = tempfile()
+#' dir.create(exdir)
+#' files = untar(tarfile = tarfile, list = TRUE, exdir = exdir)
+#' files = files[!grepl("^[.]", basename(files))]
+#' unz = untar(tarfile = tarfile, files = files, exdir = exdir)
+#' files = files[ grepl("hdr", basename(files))]
+#' files
+#' files = file.path(exdir, files)
+#' res = nifti_eBayes(files, verbose = FALSE)
 nifti_eBayes = function(
-  imgs, mask, verbose = TRUE,
+  imgs, mask = NULL, verbose = TRUE,
   ...,
   proportion = 0.01, stdev.coef.lim = c(0.1,4),
   trend = FALSE, robust = FALSE, winsor.tail.p = c(0.05,0.1),

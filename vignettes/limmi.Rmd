@@ -47,7 +47,7 @@ files = file.path(exdir, files)
 We will use the `nifti_images_to_matrix` function to read these images into a matrix:
 
 ```{r}
-mat = nifti_images_to_matrix(files)
+mat = nifti_images_to_matrix(files, verbose = FALSE)
 attr(mat, "image_dim")
 attr(mat, "image_pixdim")
 dim(mat)
@@ -88,7 +88,7 @@ fit = limma::lmFit(mat[keep, ])
 
 We can use the `nifti_lmFit` function to perform this all in one function:
 ```{r}
-check_fit = nifti_lmFit(imgs = files, mask = mask)
+check_fit = nifti_lmFit(imgs = files, mask = mask, verbose = FALSE)
 all.equal(check_fit$coefficients, fit$coefficients)
 ```
 
@@ -107,7 +107,7 @@ neurobase::double_ortho(mean_image, coef_image)
 The `nifti_eBayes` function will do the reading, fitting, and `eBayes`:
 
 ```{r}
-check_eb = nifti_eBayes(files, mask)
+check_eb = nifti_eBayes(files, mask, verbose = FALSE)
 all.equal(check_eb$empirical_bayes$coefficients, eb$coefficients)
 ```
 

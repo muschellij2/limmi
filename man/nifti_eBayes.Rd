@@ -6,7 +6,7 @@
 \usage{
 nifti_eBayes(
   imgs,
-  mask,
+  mask = NULL,
   verbose = TRUE,
   ...,
   proportion = 0.01,
@@ -61,4 +61,17 @@ A list of output images from `eBayes` and the linear fit
 }
 \description{
 Run `eBayes` on NIfTI Images
+}
+\examples{
+tarfile = system.file("extdata", "can.tar.gz", package = "limmi")
+tarfile
+exdir = tempfile()
+dir.create(exdir)
+files = untar(tarfile = tarfile, list = TRUE, exdir = exdir)
+files = files[!grepl("^[.]", basename(files))]
+unz = untar(tarfile = tarfile, files = files, exdir = exdir)
+files = files[ grepl("hdr", basename(files))]
+files
+files = file.path(exdir, files)
+res = nifti_eBayes(files, verbose = FALSE)
 }

@@ -8,7 +8,6 @@
 #' @return The result from \code{\link{lmFit}}
 #' @export
 #'
-#' @examples
 nifti_lmFit = function(
   imgs, mask = NULL, verbose = TRUE,
   ...) {
