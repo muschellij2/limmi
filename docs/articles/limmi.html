@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">limmi</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -84,15 +84,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RNifti)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(neurobase)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; Loading required package: oro.nifti</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; oro.nifti 0.10.1</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&gt; </span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; Attaching package: 'oro.nifti'</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; The following object is masked from 'package:RNifti':</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">#&gt; </span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="co">#&gt;     origin</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(limmi)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(limmi)</span></code></pre></div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data" class="anchor"></a>Data</h1>
@@ -103,7 +95,7 @@
 <p>We have included a subset of this data in the <code>inst/extdata/</code> directory (from the <code>can</code> contrast):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>tarfile =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"can.tar.gz"</span>, <span class="dt">package =</span> <span class="st">"limmi"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2"></a>tarfile</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmpfHhZPB/temp_libpath14676496d38d/limmi/extdata/can.tar.gz"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; [1] "/private/var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T/RtmptX0tAJ/temp_libpath15111638fc18d/limmi/extdata/can.tar.gz"</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>exdir =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span>()</span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="kw"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(exdir)</span>
 <span id="cb2-6"><a href="#cb2-6"></a>files =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/untar.html">untar</a></span>(<span class="dt">tarfile =</span> tarfile, <span class="dt">list =</span> <span class="ot">TRUE</span>, <span class="dt">exdir =</span> exdir)</span>
@@ -129,19 +121,26 @@
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; [1] 153594     12</span></span></code></pre></div>
 <p>Let’s read in one of the images and look at the contrast images:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>img =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/RNifti/man/asNifti.html">asNifti</a></span>(files[[<span class="dv">1</span>]])</span>
-<span id="cb4-2"><a href="#cb4-2"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(img)</span></code></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a>have_neurobase =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"neurobase"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb4-4"><a href="#cb4-4"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(img)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>}</span></code></pre></div>
 <p><img src="limmi_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>We can also look at the mean image over all voxels:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>mask =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(<span class="ot">TRUE</span>, <span class="dt">dim =</span> <span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(img))</span>
 <span id="cb5-2"><a href="#cb5-2"></a>mean_image =<span class="st"> </span>limmi<span class="op">:::</span><span class="kw">remake_nifti_image</span>(<span class="kw"><a href="https://rdrr.io/r/base/colSums.html">rowMeans</a></span>(mat), img, <span class="dt">mask =</span> mask <span class="op">&gt;</span><span class="dv">0</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(mean_image)</span></code></pre></div>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(mean_image)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>}</span></code></pre></div>
 <p><img src="limmi_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>Now, we could run <code>limma</code> directly on this matrix. The <code>nifti_limma</code> function does this as a wrapper for the process. We should likely have a mask file of the voxels we want to perform the operation, but otherwise it will work over all voxels, even those with <code>NaN</code> in all the regions.</p>
 <p>Let’s make a mask of voxels where there is <strong>any</strong> non-missing in the data:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>keep =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(mat)) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>mask =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/array.html">array</a></span>(keep, <span class="dt">dim =</span> <span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(img))</span>
 <span id="cb6-3"><a href="#cb6-3"></a>mask =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/RNifti/man/asNifti.html">asNifti</a></span>(mask, <span class="dt">reference =</span> img)</span>
-<span id="cb6-4"><a href="#cb6-4"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(mask)</span></code></pre></div>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb6-5"><a href="#cb6-5"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(mask)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>}</span></code></pre></div>
 <p><img src="limmi_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div id="run-limma" class="section level1">
@@ -167,7 +166,9 @@
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>eb =<span class="st"> </span>limma<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/limma/man/ebayes.html">eBayes</a></span>(<span class="dt">fit =</span> fit)</span>
 <span id="cb9-2"><a href="#cb9-2"></a>coef_vec =<span class="st"> </span>eb<span class="op">$</span>coefficients[,<span class="dv">1</span>]</span>
 <span id="cb9-3"><a href="#cb9-3"></a>coef_image =<span class="st"> </span>limmi<span class="op">:::</span><span class="kw">remake_nifti_image</span>(coef_vec, img, <span class="dt">mask =</span> mask <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb9-4"><a href="#cb9-4"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/double_ortho.html">double_ortho</a></span>(mean_image, coef_image)</span></code></pre></div>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb9-5"><a href="#cb9-5"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/double_ortho.html">double_ortho</a></span>(mean_image, coef_image)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>}</span></code></pre></div>
 <p><img src="limmi_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <div id="all-in-one-line-1" class="section level2">
 <h2 class="hasAnchor">
@@ -177,23 +178,29 @@
 <span id="cb10-2"><a href="#cb10-2"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(check_eb<span class="op">$</span>empirical_bayes<span class="op">$</span>coefficients, eb<span class="op">$</span>coefficients)</span>
 <span id="cb10-3"><a href="#cb10-3"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>diff_from_mean =<span class="st"> </span>mean_image <span class="op">-</span><span class="st"> </span>coef_image</span>
-<span id="cb11-2"><a href="#cb11-2"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(diff_from_mean)</span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb11-3"><a href="#cb11-3"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(diff_from_mean)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>}</span></code></pre></div>
 <p><img src="limmi_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(diff_from_mean)</span></code></pre></div>
 <p><img src="limmi_files/figure-html/unnamed-chunk-11-2.png" width="700"></p>
 <p>The output of <code>nifti_eBayes</code> does the remaking of images, and the <code>images</code> element is a list of these output images from <code>eBayes</code>:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>p.value)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>p.value)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>}</span></code></pre></div>
 <p><img src="limmi_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>By default, <code>nifti_eBayes</code> also does a <code>topTable</code> from <code>limma</code> to adjust the p-values, using a Benjamini-Hochberg adjustment:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>adjusted_p_value)</span></code></pre></div>
-<p><img src="limmi_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>adjusted_p_value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span>)</span></code></pre></div>
-<p><img src="limmi_files/figure-html/unnamed-chunk-13-2.png" width="700"></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb14-2"><a href="#cb14-2"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>adjusted_p_value)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>adjusted_p_value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span>)</span>
+<span id="cb14-4"><a href="#cb14-4"></a>}</span></code></pre></div>
+<p><img src="limmi_files/figure-html/unnamed-chunk-13-1.png" width="700"><img src="limmi_files/figure-html/unnamed-chunk-13-2.png" width="700"></p>
 <p>Here we can compare the 2 maps, before and after adjustment:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>p.value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span>)</span></code></pre></div>
-<p><img src="limmi_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>adjusted_p_value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span>)</span></code></pre></div>
-<p><img src="limmi_files/figure-html/unnamed-chunk-14-2.png" width="700"></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="cf">if</span> (have_neurobase) {</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>p.value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span>)</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  neurobase<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/neurobase/man/ortho2.html">ortho2</a></span>(check_eb<span class="op">$</span>images<span class="op">$</span>adjusted_p_value <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.05</span>)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>}</span></code></pre></div>
+<p><img src="limmi_files/figure-html/unnamed-chunk-14-1.png" width="700"><img src="limmi_files/figure-html/unnamed-chunk-14-2.png" width="700"></p>
 </div>
 </div>
   </div>
