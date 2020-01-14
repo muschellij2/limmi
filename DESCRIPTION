@@ -29,5 +29,6 @@ RoxygenNote: 7.0.1
 Imports: 
     limma,
     RNifti
+Remotes: muschellij2/neurobase
 URL: https://github.com/muschellij2/limmi
 BugReports: https://github.com/muschellij2/limmi/issues
