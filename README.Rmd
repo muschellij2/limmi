@@ -2,9 +2,9 @@
 output: github_document
 ---
 
-[![Travis build status](https://travis-ci.com/muschellij2/mni.svg?branch=master)](https://travis-ci.com/muschellij2/mni)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/mni?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/mni)
-[![Coverage status](https://codecov.io/gh/muschellij2/mni/branch/master/graph/badge.svg)](https://codecov.io/gh/muschellij2/mni)
+[![Travis build status](https://travis-ci.com/muschellij2/limmi.svg?branch=master)](https://travis-ci.com/muschellij2/limmi)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/limmi?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/limmi)
+[![Coverage status](https://codecov.io/gh/muschellij2/limmi/branch/master/graph/badge.svg)](https://codecov.io/gh/muschellij2/limmi)
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r setup, include = FALSE}
@@ -14,46 +14,16 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-"
 )
 ```
-# mni Package: 
-The goal of `mni` is to provide provides functions for downloading magnetic
-    resonace imaging ('MRI') templates of humans.
+# limmi Package: 
+The goal of `limmi` is to provide provides functions for running LIMMA against
+medical images.
 
 ## Installation
 
-You can install `mni` from GitHub with:
+You can install `limmi` from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("remotes")
-remotes::install_github("muschellij2/mni")
+remotes::install_github("muschellij2/limmi")
 ```
 
-
-Data from http://nist.mni.mcgill.ca/:
-
-Copyright (C) 1993-2009 Louis Collins, McConnell Brain
-Imaging Centre, Montreal Neurological Institute, McGill University.
-Permission to use, copy, modify, and distribute this software and
-its documentation for any purpose and without fee is hereby granted,
-provided that the above copyright notice appear in all copies. The
-authors and McGill University make no representations about the
-suitability of this software for any purpose. It is provided "as
-is" without express or implied warranty. The authors are not
-responsible for any data loss, equipment damage, property loss, or
-injury to subjects or patients resulting from the use or misuse of
-this software package.
-
-Copyright (C) 2016-2018 Yiming Xiao, McConnell Brain Imaging Centre,
-Montreal Neurological Institute, McGill University.
-Permission to use, copy, modify, and distribute this software and
-its documentation for any purpose and without fee is hereby granted,
-provided that the above copyright notice appear in all copies. The
-authors and McGill University make no representations about the
-suitability of this software for any purpose. It is provided "as
-is" without express or implied warranty. The authors are not
-responsible for any data loss, equipment damage, property loss, or
-injury to subjects or patients resulting from the use or misuse of
-this software package.
-
-```{r}
-citation("mni")
-```
