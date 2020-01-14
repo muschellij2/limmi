@@ -17,8 +17,9 @@ nifti_images_to_matrix = function(imgs, mask = NULL, verbose = TRUE) {
   } else {
     mask = array(TRUE, dim = dim(img))
   }
+  dimg = dim(img)
   rm(img)
-  n_voxels_dim = prod(dim(img))
+  n_voxels_dim = prod(dimg)
   n_voxels = sum(mask, na.rm = TRUE)
   ind = which(mask, arr.ind = TRUE)
   rm(mask)
@@ -41,5 +42,6 @@ nifti_images_to_matrix = function(imgs, mask = NULL, verbose = TRUE) {
   if (is.character(imgs)) {
     colnames(mat) = imgs
   }
+  attr(mat, "image_dim") = dimg
   mat
 }

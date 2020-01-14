@@ -1,5 +1,6 @@
 language: R
 sudo: required
+bioc_required: yes
 cache: packages
 after_success: if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::codecov(type
   = "all")'; fi

@@ -1,0 +1,22 @@
+c(
+  bibentry(
+    bibtype = "article",
+    title = "Face repetition effects in implicit and explicit memory tests as measured by fMRI",
+    author = c(person(given = "RNA", family = "Henson"),
+               person(given = "Timothy",
+                      family = "Shallice"),
+               person(given = "ML", family = "Gorno-Tempini"),
+               person(given = c("Raymond", "J"), family = "Dolan")),
+    journal = "Cerebral Cortex", volume = "12",
+    number = "2",
+    pages = "178--186", year = "2002",
+    publisher = "Oxford University Press"),
+
+  bibentry(
+    bibtype = "Manual",
+    year = 2020,
+    url = "https://github.com/muschellij2/limmi",
+    title = "limmi: Linear Models for Medical Images",
+    author = as.person("John Muschelli"),
+    note = "R package version 0.2.0")
+)

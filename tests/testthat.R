@@ -1,4 +1,4 @@
 library(testthat)
-library(mni)
+library(limmi)
 
-test_check("mni")
+test_check("limmi")

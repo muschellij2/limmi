@@ -1,0 +1,52 @@
+---
+title: "limmi"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{limmi}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(limmi)
+```
+
+# Data
+
+The data is from https://www.fil.ion.ucl.ac.uk/spm/data/face_rfx/.  The data was from
+the study of
+
+> Henson, R. N. A., et al. "Face repetition effects in implicit and explicit memory tests as measured by fMRI." *Cerebral Cortex* 12.2 (2002): 178-186.
+
+We have included a subset of this data in the `inst/extdata/` directory (from the `can` contrast):
+
+```{r}
+tarfile = system.file("extdata", "can.tar.gz", package = "limmi")
+tarfile
+exdir = tempfile()
+dir.create(exdir)
+files = untar(tarfile = tarfile, list = TRUE, exdir = exdir)
+files = files[!grepl("^\\.", basename(files))]
+unz = untar(tarfile = tarfile, files = files, exdir = exdir)
+files = file.path(exdir, files)
+files = files[ grepl("hdr", files)]
+```
+
+# Create a Data Matrix
+
+We will use the `nifti_images_to_matrix` function to read these images into a matrix:
+
+```{r}
+mat = nifti_images_to_matrix(files)
+attr(mat, "image_dim")
+dim(mat)
+```
+
+Now, we could run `limma` directly on this matrix.  The `nifti_limma` function does this as a wrapper for the process.  We should likely have a m

@@ -25,10 +25,8 @@
 #' @return
 #' @export
 #'
-#' @examples
-#'
-#' @param
 #' @return A list of output images from `eBayes` and the linear fit
+#' @examples
 nifti_eBayes = function(
   imgs, mask, verbose = TRUE,
   ...,
