@@ -4,6 +4,11 @@ bioc_required: yes
 cache: packages
 after_success: if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e 'covr::codecov(type
   = "all")'; fi
+env:
+  global: 
+    - RGL_USE_NULL=TRUE
+    - DISPLAY=:99.0
+    - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 warnings_are_errors: yes
 before_deploy: if [ "$TRAVIS_OS_NAME" == "osx" ]; then rm -f *.tar.gz; fi
 r_check_args: --as-cran --install-args=--build
