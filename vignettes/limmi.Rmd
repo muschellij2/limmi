@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
+library(RNifti)
+library(neurobase)
 library(limmi)
 ```
 
@@ -35,8 +37,9 @@ dir.create(exdir)
 files = untar(tarfile = tarfile, list = TRUE, exdir = exdir)
 files = files[!grepl("^\\.", basename(files))]
 unz = untar(tarfile = tarfile, files = files, exdir = exdir)
+files = files[ grepl("hdr", basename(files))]
+files
 files = file.path(exdir, files)
-files = files[ grepl("hdr", files)]
 ```
 
 # Create a Data Matrix
@@ -46,7 +49,90 @@ We will use the `nifti_images_to_matrix` function to read these images into a ma
 ```{r}
 mat = nifti_images_to_matrix(files)
 attr(mat, "image_dim")
+attr(mat, "image_pixdim")
 dim(mat)
 ```
 
-Now, we could run `limma` directly on this matrix.  The `nifti_limma` function does this as a wrapper for the process.  We should likely have a m
+Let's read in one of the images and look at the contrast images:
+```{r}
+img = asNifti(files[[1]])
+neurobase::ortho2(img)
+```
+
+We can also look at the mean image over all voxels:
+```{r}
+mask = array(TRUE, dim = dim(img))
+mean_image = limmi:::remake_nifti_image(rowMeans(mat), img, mask = mask >0)
+neurobase::ortho2(mean_image)
+```
+
+Now, we could run `limma` directly on this matrix.  The `nifti_limma` function does this as a wrapper for the process.  We should likely have a mask file of the voxels we want to perform the operation, but otherwise it will work over all voxels, even those with `NaN` in all the regions. 
+
+Let's make a mask of voxels where there is **any** non-missing in the data:
+
+```{r}
+keep = rowSums(!is.na(mat)) > 0
+mask = array(keep, dim = dim(img))
+mask = asNifti(mask, reference = img)
+neurobase::ortho2(mask)
+```
+
+# Run `limma`
+
+Now that we have the mask we want, let's run `limma` and a linear fit:
+```{r}
+fit = limma::lmFit(mat[keep, ])
+```
+
+## All in one line
+
+We can use the `nifti_lmFit` function to perform this all in one function:
+```{r}
+check_fit = nifti_lmFit(imgs = files, mask = mask)
+all.equal(check_fit$coefficients, fit$coefficients)
+```
+
+# Running `eBayes`
+
+Let's run `eBayes` with the defaults (not likely a good idea with this data), getting the results:
+```{r}
+eb = limma::eBayes(fit = fit)
+coef_vec = eb$coefficients[,1]
+coef_image = limmi:::remake_nifti_image(coef_vec, img, mask = mask > 0)
+neurobase::double_ortho(mean_image, coef_image)
+```
+
+
+## All in one line
+The `nifti_eBayes` function will do the reading, fitting, and `eBayes`:
+
+```{r}
+check_eb = nifti_eBayes(files, mask)
+all.equal(check_eb$empirical_bayes$coefficients, eb$coefficients)
+```
+
+```{r}
+diff_from_mean = mean_image - coef_image
+neurobase::ortho2(diff_from_mean)
+hist(diff_from_mean)
+```
+
+The output of `nifti_eBayes` does the remaking of images, and the `images` element is a list of these output images from `eBayes`:
+
+```{r}
+neurobase::ortho2(check_eb$images$p.value)
+```
+
+By default, `nifti_eBayes` also does a `topTable` from `limma` to adjust the p-values, using a Benjamini-Hochberg adjustment:
+
+```{r}
+neurobase::ortho2(check_eb$images$adjusted_p_value)
+neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05)
+```
+
+Here we can compare the 2 maps, before and after adjustment:
+
+```{r}
+neurobase::ortho2(check_eb$images$p.value <= 0.05)
+neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05)
+```

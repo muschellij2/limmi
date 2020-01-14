@@ -18,6 +18,7 @@ nifti_images_to_matrix = function(imgs, mask = NULL, verbose = TRUE) {
     mask = array(TRUE, dim = dim(img))
   }
   dimg = dim(img)
+  pdim = RNifti::pixdim(img)
   rm(img)
   n_voxels_dim = prod(dimg)
   n_voxels = sum(mask, na.rm = TRUE)
@@ -43,5 +44,6 @@ nifti_images_to_matrix = function(imgs, mask = NULL, verbose = TRUE) {
     colnames(mat) = imgs
   }
   attr(mat, "image_dim") = dimg
+  attr(mat, "image_pixdim") = pdim
   mat
 }
