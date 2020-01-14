@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 # limmi Package: 
-The goal of `limmi` is to provide provides functions for running LIMMA against
+The goal of `limmi` is to provide functions for running LIMMA against
 medical images.
 
 ## Installation

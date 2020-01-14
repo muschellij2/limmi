@@ -1,7 +1,6 @@
 Type: Package
-Package: mni
-Title: Human 'MNI' (Montreal Neurological Institute) Adult
-    Templates
+Package: limmi
+Title: Linear Models for Medical Images
 Version: 0.2.0
 Authors@R: c(
     person(given = "John",
@@ -12,8 +11,8 @@ Authors@R: c(
     person(given = "Louis", family = "Collins", role = "cph"),
     person(given = "Yiming", family = "Xiao", role = "cph")
     )
-Description: Provides functions for downloading magnetic
-    resonace imaging ('MRI') templates of humans.
+Description: Provides functions for running linear models for medical mmages,
+    adapting the framework of 'limma' for 'NIfTI' images.
 License: GPL-3
 Depends: 
     R (>= 2.10)
