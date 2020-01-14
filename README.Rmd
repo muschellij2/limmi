@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-"
 )
 ```
+
 # limmi Package: 
 The goal of `limmi` is to provide functions for running LIMMA against
 medical images.
