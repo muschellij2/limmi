@@ -11,7 +11,9 @@
 nifti_lmFit = function(
   imgs, mask = NULL, verbose = TRUE,
   ...) {
-
+  if (is.factor(imgs)) {
+    imgs = as.character(imgs)
+  }
   img = RNifti::asNifti(imgs[[1]])
   if (!is.null(mask)) {
     mask =  RNifti::asNifti(mask) > 0

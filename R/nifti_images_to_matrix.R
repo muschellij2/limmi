@@ -10,6 +10,9 @@
 #' image or the number of voxels in the mask, and n is the number of images
 #' @export
 nifti_images_to_matrix = function(imgs, mask = NULL, verbose = TRUE) {
+  if (is.factor(imgs)) {
+    imgs = as.character(imgs)
+  }
   img = RNifti::asNifti(imgs[[1]])
   if (!is.null(mask)) {
     mask = RNifti::asNifti(mask)

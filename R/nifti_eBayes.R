@@ -50,7 +50,9 @@ nifti_eBayes = function(
   trend = FALSE, robust = FALSE, winsor.tail.p = c(0.05,0.1),
   coef = NULL,
   adjust.method = "BH") {
-
+  if (is.factor(imgs)) {
+    imgs = as.character(imgs)
+  }
   img = RNifti::asNifti(imgs[[1]])
   if (!is.null(mask)) {
     mask =  RNifti::asNifti(mask) > 0
