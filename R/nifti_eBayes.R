@@ -38,6 +38,11 @@
 #' files
 #' files = file.path(exdir, files)
 #' res = nifti_eBayes(files, verbose = FALSE)
+#' \dontrun{
+#' design_mat = cbind(x1 = rep(c(0, 1), each = 6),
+#' x2 = rep(c(0, 1, 0, 1), each = 3))
+#' res2 = nifti_eBayes(files, design = design_mat, coef = 2)
+#' }
 nifti_eBayes = function(
   imgs, mask = NULL, verbose = TRUE,
   ...,
@@ -53,9 +58,59 @@ nifti_eBayes = function(
     mask = array(TRUE, dim = dim(img))
   }
 
+  if (verbose) {
+    msg = paste0("Combining Images into a Matrix")
+    message(msg)
+  }
   mat = nifti_images_to_matrix(imgs, mask, verbose = verbose)
-  n = nrow(mat)
+  # n = nrow(mat)
+  if (verbose) {
+    msg = paste0("Making lmFit")
+    message(msg)
+  }
   fit = limma::lmFit(mat, ...)
+
+  if (verbose) {
+    msg = paste0("Running eBayes")
+    message(msg)
+  }
+  mask = RNifti::asNifti(mask, reference = img)
+  L = eBayes_to_images(
+    fit,
+    mask = mask,
+    verbose = verbose,
+    proportion = proportion,
+    stdev.coef.lim = stdev.coef.lim,
+    trend = trend,
+    robust = robust,
+    winsor.tail.p = winsor.tail.p,
+    coef = coef,
+    adjust.method = adjust.method
+  )
+
+  L$lm_fit = fit
+  L$mask = mask
+  L
+}
+
+#' @rdname nifti_eBayes
+#' @param fit an MArrayLM fitted model object produced by `lmFit` or
+#' `contrasts.fit`.
+#' @export
+eBayes_to_images = function(
+  fit,
+  mask, verbose = TRUE,
+  proportion = 0.01, stdev.coef.lim = c(0.1,4),
+  trend = FALSE, robust = FALSE, winsor.tail.p = c(0.05,0.1),
+  coef = NULL,
+  adjust.method = "BH") {
+  cols_to_grab = c("coefficients", "stdev.unscaled",
+                   "t", "p.value", "lods", "adjusted_p_value")
+  if (verbose) {
+    msg = paste0("Running p-value adjustment")
+    message(msg)
+  }
+  n = nrow(fit$coefficients)
 
   eb.fit = limma::eBayes(
     fit,
@@ -64,23 +119,54 @@ nifti_eBayes = function(
     trend = trend, robust = robust,
     winsor.tail.p = winsor.tail.p)
 
-  cols_to_grab = c("coefficients", "stdev.unscaled",
-                   "t", "p.value", "lods", "adjusted_p_value")
-  eb.fit$adjusted_p_value = limma::topTable(
-    eb.fit,
-    sort.by = "none",
-    coef = coef,
-    adjust.method = adjust.method,
-    number = n)$adj.P.Val
+  nc = ncol(eb.fit$coefficients)
+  eb.fit$adjusted_p_value = sapply(
+    seq(nc),
+    function(x) {
+      limma::topTable(
+        eb.fit,
+        sort.by = "none",
+        coef = x,
+        adjust.method = adjust.method,
+        number = n)$adj.P.Val
+    })
+  colnames(eb.fit$adjusted_p_value) = colnames(fit$coefficients)
+
+  if (!is.null(coef)) {
+    eb.fit$coef_adjusted_p_value = matrix(
+      limma::topTable(
+        eb.fit,
+        sort.by = "none",
+        coef = coef,
+        adjust.method = adjust.method,
+        number = n)$adj.P.Val, ncol = 1)
+    cols_to_grab = c(cols_to_grab, "coef_adjusted_p_value")
+  }
+
+  if (verbose) {
+    msg = paste0("Transforming to images")
+    message(msg)
+  }
+  img = mask
   out_images = lapply(cols_to_grab, function(x) {
-    remake_nifti_image(eb.fit[[x]], img = img, mask = mask)
+    sub_eb = eb.fit[[x]]
+    if (verbose > 1) {
+      message(x)
+    }
+    res = apply(sub_eb, 2, function(r) {
+      list(remake_nifti_image(r, img = img, mask = mask))
+    })
+    res = lapply(res, function(ll) ll[[1]])
+    if (length(res) == 1) {
+      res = res[[1]]
+    }
+    res
   })
   names(out_images) = cols_to_grab
-
   L = list(
     images = out_images,
     empirical_bayes = eb.fit,
-    adjust.method = adjust.method,
-    lm_fit = fit)
-  L
+    adjust.method = adjust.method
+  )
+  return(L)
 }

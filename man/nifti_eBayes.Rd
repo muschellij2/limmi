@@ -2,6 +2,7 @@
 % Please edit documentation in R/nifti_eBayes.R
 \name{nifti_eBayes}
 \alias{nifti_eBayes}
+\alias{eBayes_to_images}
 \title{Run `eBayes` on NIfTI Images}
 \usage{
 nifti_eBayes(
@@ -9,6 +10,19 @@ nifti_eBayes(
   mask = NULL,
   verbose = TRUE,
   ...,
+  proportion = 0.01,
+  stdev.coef.lim = c(0.1, 4),
+  trend = FALSE,
+  robust = FALSE,
+  winsor.tail.p = c(0.05, 0.1),
+  coef = NULL,
+  adjust.method = "BH"
+)
+
+eBayes_to_images(
+  fit,
+  mask,
+  verbose = TRUE,
   proportion = 0.01,
   stdev.coef.lim = c(0.1, 4),
   trend = FALSE,
@@ -53,6 +67,9 @@ passed to \code{\link{topTable}}}
 
 \item{adjust.method}{method to adjust p-value,
 passed to \code{\link{topTable}}}
+
+\item{fit}{an MArrayLM fitted model object produced by `lmFit` or
+`contrasts.fit`.}
 }
 \value{
 
@@ -74,4 +91,9 @@ files = files[ grepl("hdr", basename(files))]
 files
 files = file.path(exdir, files)
 res = nifti_eBayes(files, verbose = FALSE)
+\dontrun{
+design_mat = cbind(x1 = rep(c(0, 1), each = 6),
+x2 = rep(c(0, 1, 0, 1), each = 3))
+res2 = nifti_eBayes(files, design = design_mat, coef = 2)
+}
 }
