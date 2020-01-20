@@ -55,9 +55,14 @@ dim(mat)
 Let's read in one of the images and look at the contrast images:
 ```{r}
 img = asNifti(files[[1]])
+```
+```{r}
 have_neurobase = requireNamespace("neurobase", quietly = TRUE)
+```
+```{r}
+pdim = c(3, pixdim(img), rep(1, 4))
 if (have_neurobase) {
-  neurobase::ortho2(img)
+  neurobase::ortho2(img, pdim = pdim)
 }
 ```
 
