@@ -26,6 +26,7 @@ environment:
   global:
     WARNINGS_ARE_ERRORS: 1.0
     USE_RTOOLS: yes
+    PKGTYPE: both
     R_CHECK_INSTALL_ARGS: --install-args=--build --no-multiarch
 deploy:
   provider: GitHub
