@@ -71,7 +71,7 @@ We can also look at the mean image over all voxels:
 mask = array(TRUE, dim = dim(img))
 mean_image = limmi:::remake_nifti_image(rowMeans(mat), img, mask = mask >0)
 if (have_neurobase) {
-  neurobase::ortho2(mean_image)
+  neurobase::ortho2(mean_image, pdim = pdim)
 }
 ```
 
@@ -84,7 +84,7 @@ keep = rowSums(!is.na(mat)) > 0
 mask = array(keep, dim = dim(img))
 mask = asNifti(mask, reference = img)
 if (have_neurobase) {
-  neurobase::ortho2(mask)
+  neurobase::ortho2(mask, pdim = pdim)
 }
 ```
 
@@ -111,7 +111,7 @@ eb = limma::eBayes(fit = fit)
 coef_vec = eb$coefficients[,1]
 coef_image = limmi:::remake_nifti_image(coef_vec, img, mask = mask > 0)
 if (have_neurobase) {
-  neurobase::double_ortho(mean_image, coef_image)
+  neurobase::double_ortho(mean_image, coef_image, pdim = pdim)
 }
 ```
 
@@ -127,7 +127,7 @@ all.equal(check_eb$empirical_bayes$coefficients, eb$coefficients)
 ```{r}
 diff_from_mean = mean_image - coef_image
 if (have_neurobase) {
-  neurobase::ortho2(diff_from_mean)
+  neurobase::ortho2(diff_from_mean, pdim = pdim)
 }
 hist(diff_from_mean)
 ```
@@ -136,7 +136,7 @@ The output of `nifti_eBayes` does the remaking of images, and the `images` eleme
 
 ```{r}
 if (have_neurobase) {
-  neurobase::ortho2(check_eb$images$p.value)
+  neurobase::ortho2(check_eb$images$p.value, pdim = pdim)
 }
 ```
 
@@ -144,8 +144,8 @@ By default, `nifti_eBayes` also does a `topTable` from `limma` to adjust the p-v
 
 ```{r}
 if (have_neurobase) {
-  neurobase::ortho2(check_eb$images$adjusted_p_value)
-  neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05)
+  neurobase::ortho2(check_eb$images$adjusted_p_value, pdim = pdim)
+  neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05, pdim = pdim)
 }
 ```
 
@@ -153,7 +153,7 @@ Here we can compare the 2 maps, before and after adjustment:
 
 ```{r}
 if (have_neurobase) {
-  neurobase::ortho2(check_eb$images$p.value <= 0.05)
-  neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05)
+  neurobase::ortho2(check_eb$images$p.value <= 0.05, pdim = pdim)
+  neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05, pdim = pdim)
 }
 ```
