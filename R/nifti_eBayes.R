@@ -171,4 +171,4 @@ eBayes_to_images = function(
     adjust.method = adjust.method
   )
   return(L)
-}
+} 
