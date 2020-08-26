@@ -149,7 +149,7 @@ if (have_neurobase) {
 }
 ```
 
-Here we can compare the 2 maps, before and after adjustment:
+Here we can compare the two maps, before and after adjustment:
 
 ```{r}
 if (have_neurobase) {
@@ -157,3 +157,23 @@ if (have_neurobase) {
   neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05, pdim = pdim)
 }
 ```
+
+
+# Running the local moderated T statistics
+
+Here we run `findNearestNeighbors` to list the neighbors of each voxel.
+The function `nifti_local_moderated_t_stat` produces moderated T statistics with respect to the local neighbors. The computation can be parallelized.
+```{r}
+r = 2
+findnn = findNearestNeighbors(maskImg = mask, radius = r, threads = 8)
+localt = nifti_local_moderated_t_stat(imgs = files, mask = mask, nn = findnn, radius = r, adjust.method = "BH", mc.cores = 1)
+```
+
+Here we compares the local moderated T-statistics with the global moderated T-stat.
+```{r}
+if (have_neurobase) {
+  neurobase::ortho2(localt$pvalmap <= 0.05, pdim = pdim)
+  neurobase::ortho2(check_eb$images$p.value <= 0.05, pdim = pdim)
+}
+```
+
