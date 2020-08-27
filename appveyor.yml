@@ -7,7 +7,7 @@ install:
   ps: Bootstrap
 cache: C:\RLibrary
 build_script: 
-  - travis-tool.sh install_bioc
+  - travis-tool.sh install_bioc SummarizedExperiment
   - travis-tool.sh install_deps
 test_script: travis-tool.sh run_tests
 on_failure:
