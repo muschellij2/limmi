@@ -13,7 +13,7 @@ Authors@R: c(
            role = "aut",
            email = "gqwang1001@gmail.com")
     )
-Description: Provides functions for running linear models for medical mmages,
+Description: Provides functions for running linear models for medical images,
     adapting the framework of 'limma' for 'NIfTI' images.
 License: GPL-3
 Depends: 

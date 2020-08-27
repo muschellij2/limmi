@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • limmi</title>
+<title>Compute local moderated T-statistics — nifti_local_moderated_t_stat • limmi</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Compute local moderated T-statistics — nifti_local_moderated_t_stat" />
+<meta property="og:description" content="Compute local moderated T-statistics" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,72 +112,67 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Compute local moderated T-statistics</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/limmi/blob/master/R/nifti_local_moderated_t_stat.R'><code>R/nifti_local_moderated_t_stat.R</code></a></small>
+    <div class="hidden name"><code>nifti_local_moderated_t_stat.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Compute local moderated T-statistics</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>nifti_local_moderated_t_stat</span>(
+  <span class='no'>imgs</span>,
+  <span class='kw'>mask</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>nn</span>,
+  <span class='no'>radius</span>,
+  <span class='kw'>adjust.method</span> <span class='kw'>=</span> <span class='st'>"BH"</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="findNearestNeighbors.html">findNearestNeighbors()</a></code> </p>
-        </td>
-        <td><p>Find the approximate set of neighbors of each voxels.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_df_to_SummarizedExperiment.html">nifti_df_to_SummarizedExperiment()</a></code> </p>
-        </td>
-        <td><p>Convert NIfTI data.frame to a SummarizedExperiment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_eBayes.html">nifti_eBayes()</a></code> <code><a href="nifti_eBayes.html">eBayes_to_images()</a></code> </p>
-        </td>
-        <td><p>Run `eBayes` on NIfTI Images</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_images_to_matrix.html">nifti_images_to_matrix()</a></code> </p>
-        </td>
-        <td><p>Transform set of images to matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_lmFit.html">nifti_lmFit()</a></code> </p>
-        </td>
-        <td><p>Run `lmFit` on NIfTI Images</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_local_moderated_t_stat.html">nifti_local_moderated_t_stat()</a></code> </p>
-        </td>
-        <td><p>Compute local moderated T-statistics</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>imgs</th>
+      <td><p>List of images or character of filenames</p></td>
+    </tr>
+    <tr>
+      <th>mask</th>
+      <td><p>Image to subset the data</p></td>
+    </tr>
+    <tr>
+      <th>nn</th>
+      <td><p>nearest-neighbors computed by <code><a href='findNearestNeighbors.html'>findNearestNeighbors</a></code></p></td>
+    </tr>
+    <tr>
+      <th>radius</th>
+      <td><p>Integer: Indices that dist(targetInd - queryInd) &lt;= radius</p></td>
+    </tr>
+    <tr>
+      <th>adjust.method</th>
+      <td><p>method to adjust p-value,
+passed to <code>topTable</code></p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p>Print diagnostic messages</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments to pass to <code><a href='https://rdrr.io/r/parallel/mclapply.html'>mclapply</a></code></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list of output images, including the moderated T map, p-value map,
+adjusted p-value map, and the pseudo T map.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

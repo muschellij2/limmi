@@ -10,7 +10,7 @@
 #' @param ... additional arguments to pass to \code{\link[parallel]{mclapply}}
 
 #' @return A list of output images, including the moderated T map, p-value map,
-#' adjusted p-value map, and the pseduo T map.
+#' adjusted p-value map, and the pseudo T map.
 #' @export
 
 

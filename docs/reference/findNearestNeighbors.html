@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • limmi</title>
+<title>Find the approximate set of neighbors of each voxels. — findNearestNeighbors • limmi</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Find the approximate set of neighbors of each voxels. — findNearestNeighbors" />
+<meta property="og:description" content="Find the approximate set of neighborhood of each voxels,
+given the distance radius.The number of elements in each neighborhood is (2*radius)^3.
+We recommend to find the nearest neighbors prior to limma" />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,72 +114,43 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Find the approximate set of neighbors of each voxels.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/limmi/blob/master/R/findNearestNeighbors.R'><code>R/findNearestNeighbors.R</code></a></small>
+    <div class="hidden name"><code>findNearestNeighbors.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Find the approximate set of neighborhood of each voxels,
+given the distance radius.The number of elements in each neighborhood is (2*radius)^3.
+We recommend to find the nearest neighbors prior to <code>limma</code></p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>findNearestNeighbors</span>(<span class='no'>maskImg</span>, <span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/detectCores.html'>detectCores</a></span>())</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="findNearestNeighbors.html">findNearestNeighbors()</a></code> </p>
-        </td>
-        <td><p>Find the approximate set of neighbors of each voxels.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_df_to_SummarizedExperiment.html">nifti_df_to_SummarizedExperiment()</a></code> </p>
-        </td>
-        <td><p>Convert NIfTI data.frame to a SummarizedExperiment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_eBayes.html">nifti_eBayes()</a></code> <code><a href="nifti_eBayes.html">eBayes_to_images()</a></code> </p>
-        </td>
-        <td><p>Run `eBayes` on NIfTI Images</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_images_to_matrix.html">nifti_images_to_matrix()</a></code> </p>
-        </td>
-        <td><p>Transform set of images to matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_lmFit.html">nifti_lmFit()</a></code> </p>
-        </td>
-        <td><p>Run `lmFit` on NIfTI Images</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="nifti_local_moderated_t_stat.html">nifti_local_moderated_t_stat()</a></code> </p>
-        </td>
-        <td><p>Compute local moderated T-statistics</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>maskImg</th>
+      <td><p>Input Masked image which the masked voxels are labeled with zeros</p></td>
+    </tr>
+    <tr>
+      <th>radius</th>
+      <td><p>Integer: Indices that `dist(targetInd - queryInd) &lt;= radius`</p></td>
+    </tr>
+    <tr>
+      <th>threads</th>
+      <td><p>Integer: threads to use in closest point search.</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>The result from <code>vcgKDtree</code></p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
