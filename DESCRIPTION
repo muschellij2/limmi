@@ -1,7 +1,7 @@
 Type: Package
 Package: limmi
 Title: Linear Models for Medical Images
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person(given = "John",
            family = "Muschelli",
@@ -29,7 +29,7 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Imports: 
     limma,
     RNifti,

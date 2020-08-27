@@ -10,8 +10,9 @@
 #' @return The result from \code{\link{vcgKDtree}}
 #' @export
 
-findNearestNeighbors = function(maskImg, radius = 1, threads = 10){
-  ind.mask <- which(maskImg>0, arr.ind = T)
-  nn = Rvcg::vcgKDtree(target = ind.mask, query = ind.mask, k = radius^3*8, threads = threads)
+findNearestNeighbors = function(maskImg, radius = 1, threads = parallel::detectCores()){
+  ind.mask <- which(maskImg > 0, arr.ind = TRUE)
+  nn = Rvcg::vcgKDtree(target = ind.mask, query = ind.mask,
+                       k = radius^3*8, threads = threads)
   return(nn)
 }

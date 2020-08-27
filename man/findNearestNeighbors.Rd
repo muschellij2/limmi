@@ -4,7 +4,7 @@
 \alias{findNearestNeighbors}
 \title{Find the approximate set of neighbors of each voxels.}
 \usage{
-findNearestNeighbors(maskImg, radius = 1, threads = 10)
+findNearestNeighbors(maskImg, radius = 1, threads = parallel::detectCores())
 }
 \arguments{
 \item{maskImg}{Input Masked image which the masked voxels are labeled with zeros}
