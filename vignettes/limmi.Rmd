@@ -30,14 +30,14 @@ We have included a subset of this data in the `inst/extdata/` directory (from th
 
 ```{r}
 tarfile = system.file("extdata", "can.tar.gz", package = "limmi")
-tarfile
+# tarfile
 exdir = tempfile()
 dir.create(exdir)
 files = untar(tarfile = tarfile, list = TRUE, exdir = exdir)
 files = files[!grepl("^\\.", basename(files))]
 unz = untar(tarfile = tarfile, files = files, exdir = exdir)
 files = files[ grepl("hdr", basename(files))]
-files
+# files
 files = file.path(exdir, files)
 ```
 
@@ -56,9 +56,11 @@ Let's read in one of the images and look at the contrast images:
 ```{r}
 img = asNifti(files[[1]])
 ```
+
 ```{r}
 have_neurobase = requireNamespace("neurobase", quietly = TRUE)
 ```
+
 ```{r}
 pdim = c(3, pixdim(img), rep(1, 4))
 if (have_neurobase) {
@@ -149,7 +151,7 @@ if (have_neurobase) {
 }
 ```
 
-Here we can compare the 2 maps, before and after adjustment:
+Here we can compare the two maps, before and after adjustment:
 
 ```{r}
 if (have_neurobase) {
@@ -157,3 +159,25 @@ if (have_neurobase) {
   neurobase::ortho2(check_eb$images$adjusted_p_value <= 0.05, pdim = pdim)
 }
 ```
+
+
+# Running the locally moderated T statistics
+
+Here we run `findNearestNeighbors` to list the neighbors of each voxel.
+The function `nifti_local_moderated_t_stat` produces moderated T statistics with respect to the local neighbors. The computation can be parallelized by specifying the parameter `mc.cores`.
+```{r}
+# Specifying the radius of neighborhood
+r = 2
+findnn = findNearestNeighbors(maskImg = mask, radius = r, threads = 8)
+localt = nifti_local_moderated_t_stat(imgs = files, mask = mask, nn = findnn, radius = r,
+                                      adjust.method = "BH", mc.cores = 1)
+```
+
+Here we compares the locally moderated T-statistic(left) with the globally moderated T-statistic (right).
+```{r}
+if (have_neurobase) {
+  neurobase::ortho2(localt$pvalmap <= 0.05, pdim = pdim)
+  neurobase::ortho2(check_eb$images$p.value <= 0.05, pdim = pdim)
+}
+```
+

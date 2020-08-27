@@ -7,7 +7,11 @@ Authors@R: c(
            family = "Muschelli",
            role = c("aut", "cre"),
            email = "muschellij2@gmail.com",
-           comment = c(ORCID = "0000-0001-6469-1750"))
+           comment = c(ORCID = "0000-0001-6469-1750")),
+    person(given = "Guoqing",
+           family = "Wang",
+           role = "aut",
+           email = "gqwang1001@gmail.com")
     )
 Description: Provides functions for running linear models for medical mmages,
     adapting the framework of 'limma' for 'NIfTI' images.
@@ -25,11 +29,13 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
-RoxygenNote: 7.0.1
+RoxygenNote: 7.1.0
 Imports: 
     limma,
     RNifti,
-    SummarizedExperiment
+    SummarizedExperiment,
+    parallel,
+    Rvcg
 Remotes: muschellij2/neurobase
 URL: https://github.com/muschellij2/limmi
 BugReports: https://github.com/muschellij2/limmi/issues
