@@ -134,6 +134,7 @@ eBayes_to_images = function(
     })
   colnames(eb.fit$adjusted_p_value) = colnames(fit$coefficients)
 
+
   if (!is.null(coef)) {
     eb.fit$coef_adjusted_p_value = matrix(
       limma::topTable(
@@ -144,6 +145,15 @@ eBayes_to_images = function(
         number = n)$adj.P.Val, ncol = 1)
     cols_to_grab = c(cols_to_grab, "coef_adjusted_p_value")
   }
+
+  if (verbose) {
+    msg = paste0("Calculating the ordinary T stat")
+    message(msg)
+  }
+
+  eb.fit$Ordinary_T_stat = as.matrix(fit$coefficients/fit$stdev.unscaled/fit$sigma)
+  eb.fit$Ordinary_T_stat_p_val = 2 * pt(-abs(eb.fit$Ordinary_T_stat), df = fit$df.residual)
+  cols_to_grab = c(cols_to_grab, "Ordinary_T_stat", "Ordinary_T_stat_p_val")
 
   if (verbose) {
     msg = paste0("Transforming to images")
@@ -171,4 +181,4 @@ eBayes_to_images = function(
     adjust.method = adjust.method
   )
   return(L)
-} 
+}
