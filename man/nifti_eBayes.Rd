@@ -49,7 +49,7 @@ lower and upper limits for the standard deviation of
 log2-fold-changes for differentially expressed voxels,
 passed to \code{\link{eBayes}}}
 
-\item{trend}{ogical, should an intensity-trend be allowed for the
+\item{trend}{logical, should an intensity-trend be allowed for the
 prior variance? Default is that the prior variance is constant,
 passed to \code{\link{eBayes}}}
 

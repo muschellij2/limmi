@@ -4,12 +4,12 @@
 \alias{findNearestNeighbors}
 \title{Find the approximate set of neighbors of each voxels.}
 \usage{
-findNearestNeighbors(maskImg, radius = 1, threads = 10)
+findNearestNeighbors(maskImg, radius = 1, threads = parallel::detectCores())
 }
 \arguments{
 \item{maskImg}{Input Masked image which the masked voxels are labeled with zeros}
 
-\item{radius}{Integer: Indices that dist(targetInd - queryInd) <= radius}
+\item{radius}{Integer: Indices that `dist(targetInd - queryInd) <= radius`}
 
 \item{threads}{Integer: threads to use in closest point search.}
 }
@@ -17,7 +17,7 @@ findNearestNeighbors(maskImg, radius = 1, threads = 10)
 The result from \code{\link{vcgKDtree}}
 }
 \description{
-Find the approximate set of neighhorhood of each voxels,
+Find the approximate set of neighborhood of each voxels,
 given the distance radius.The number of elements in each neighborhood is (2*radius)^3.
-We recommend to find the nn prior to limma
+We recommend to find the nearest neighbors prior to \code{limma}
 }

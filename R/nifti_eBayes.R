@@ -8,7 +8,7 @@
 #' lower and upper limits for the standard deviation of
 #' log2-fold-changes for differentially expressed voxels,
 #' passed to \code{\link{eBayes}}
-#' @param trend ogical, should an intensity-trend be allowed for the
+#' @param trend logical, should an intensity-trend be allowed for the
 #' prior variance? Default is that the prior variance is constant,
 #' passed to \code{\link{eBayes}}
 #' @param robust logical, should the estimation of df.prior and
@@ -133,7 +133,6 @@ eBayes_to_images = function(
         number = n)$adj.P.Val
     })
   colnames(eb.fit$adjusted_p_value) = colnames(fit$coefficients)
-
 
   if (!is.null(coef)) {
     eb.fit$coef_adjusted_p_value = matrix(
