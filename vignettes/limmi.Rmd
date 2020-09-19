@@ -146,7 +146,7 @@ Meanwhile, `nifti_eBayes` computes the ordinary T statistics and the associated 
 
 ```{r}
 if (have_neurobase) {
-  neurobase::ortho2(eb$images$Ordinary_T_stat_p_val, pdim = pdim)
+  neurobase::ortho2(check_eb$images$Ordinary_T_stat_p_val, pdim = pdim)
 }
 ```
 
