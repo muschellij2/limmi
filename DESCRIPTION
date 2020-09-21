@@ -35,7 +35,8 @@ Imports:
     RNifti,
     SummarizedExperiment,
     parallel,
-    Rvcg
+    Rvcg,
+    stats
 Remotes: muschellij2/neurobase
 URL: https://github.com/muschellij2/limmi
 BugReports: https://github.com/muschellij2/limmi/issues

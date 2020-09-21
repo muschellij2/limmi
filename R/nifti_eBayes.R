@@ -151,7 +151,7 @@ eBayes_to_images = function(
   }
 
   eb.fit$standard_t_stat = as.matrix(fit$coefficients/fit$stdev.unscaled/fit$sigma)
-  eb.fit$standard_t_stat_p_val = 2 * pt(-abs(eb.fit$standard_t_stat), df = fit$df.residual)
+  eb.fit$standard_t_stat_p_val = 2 * stats::pt(-abs(eb.fit$standard_t_stat), df = fit$df.residual)
   cols_to_grab = c(cols_to_grab, "standard_t_stat", "standard_t_stat_p_val")
 
   if (verbose) {
