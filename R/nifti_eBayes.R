@@ -146,13 +146,13 @@ eBayes_to_images = function(
   }
 
   if (verbose) {
-    msg = paste0("Calculating the ordinary T stat")
+    msg = paste0("Calculating the standard T stat")
     message(msg)
   }
 
-  eb.fit$Ordinary_T_stat = as.matrix(fit$coefficients/fit$stdev.unscaled/fit$sigma)
-  eb.fit$Ordinary_T_stat_p_val = 2 * pt(-abs(eb.fit$Ordinary_T_stat), df = fit$df.residual)
-  cols_to_grab = c(cols_to_grab, "Ordinary_T_stat", "Ordinary_T_stat_p_val")
+  eb.fit$standard_t_stat = as.matrix(fit$coefficients/fit$stdev.unscaled/fit$sigma)
+  eb.fit$standard_t_stat_p_val = 2 * pt(-abs(eb.fit$standard_t_stat), df = fit$df.residual)
+  cols_to_grab = c(cols_to_grab, "standard_t_stat", "standard_t_stat_p_val")
 
   if (verbose) {
     msg = paste0("Transforming to images")

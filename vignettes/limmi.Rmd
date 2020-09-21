@@ -142,11 +142,11 @@ if (have_neurobase) {
 }
 ```
 
-Meanwhile, `nifti_eBayes` computes the ordinary T statistics and the associated p-value:
+Meanwhile, `nifti_eBayes` computes the standard T statistics and the associated p-value:
 
 ```{r}
 if (have_neurobase) {
-  neurobase::ortho2(check_eb$images$Ordinary_T_stat_p_val, pdim = pdim)
+  neurobase::ortho2(check_eb$images$standard_t_stat_p_val, pdim = pdim)
 }
 ```
 
