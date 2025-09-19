@@ -2,8 +2,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/muschellij2/limmi/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/muschellij2/limmi/actions/workflows/R-CMD-check.yaml)
-[![Coverage
-status](https://codecov.io/gh/muschellij2/limmi/branch/master/graph/badge.svg)](https://codecov.io/gh/muschellij2/limmi)
+[![Codecov test
+coverage](https://codecov.io/gh/muschellij2/limmi/graph/badge.svg)](https://app.codecov.io/gh/muschellij2/limmi)
 <!-- badges: end -->
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
