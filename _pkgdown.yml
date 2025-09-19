@@ -1,1 +1,4 @@
-destination: docs
+url: http://johnmuschelli.com/limmi/
+template:
+  bootstrap: 5
+

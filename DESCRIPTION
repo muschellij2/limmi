@@ -38,5 +38,5 @@ Imports:
     Rvcg,
     stats
 Remotes: muschellij2/neurobase
-URL: https://github.com/muschellij2/limmi
+URL: https://github.com/muschellij2/limmi, http://johnmuschelli.com/limmi/
 BugReports: https://github.com/muschellij2/limmi/issues
