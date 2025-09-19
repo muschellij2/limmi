@@ -22,10 +22,9 @@
 #' @param coef column number or column name specifying which
 #' coefficient or contrast of the linear model is of interest,
 #' passed to \code{\link{topTable}}
-#' @return
 #' @export
 #'
-#' @return A list of output images from `eBayes` and the linear fit
+#' @returns A list of output images from `eBayes` and the linear fit
 #' @examples
 #' tarfile = system.file("extdata", "can.tar.gz", package = "limmi")
 #' tarfile

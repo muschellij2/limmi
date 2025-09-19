@@ -72,8 +72,6 @@ passed to \code{\link{topTable}}}
 `contrasts.fit`.}
 }
 \value{
-
-
 A list of output images from `eBayes` and the linear fit
 }
 \description{
